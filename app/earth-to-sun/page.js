@@ -1,6 +1,15 @@
 "use client";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { getDynamicEarthSunDistance } from "@/utils/earth-to-sun-distance";
 export default function EarthToSun() {
+  const [distanceToSun, setDistanceToSun] = useState(null);
+
+  useEffect(() => {
+    // Set the real-time Earth-Sun distance in kilometers
+    setDistanceToSun(getDynamicEarthSunDistance());
+  }, []);
+
 
 
   return (
@@ -20,6 +29,13 @@ export default function EarthToSun() {
           </div>
         </Link>
       </div>
+      <h1 className="mt-4">Distance from Earth to the Sun</h1>
+      {distanceToSun && (
+        <p id="sun-distance">
+          The current approximate distance from Earth to the Sun is{" "}
+          <span className="font-bold">{distanceToSun}</span> kilometers.
+        </p>
+      )}
     </div>
   );
 }
